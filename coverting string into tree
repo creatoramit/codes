@@ -1,0 +1,30 @@
+private int index = 0;
+public TreeNode str2tree(String s) {
+    if (s == null || s.length() == 0) {
+        return null;
+    }
+    TreeNode node = build(s);
+    return node;
+}
+private TreeNode build(String s) {
+    int start = index;
+    if (s.charAt(index) == '-') {
+        index++;
+    }
+    while (index < s.length() && s.charAt(index) - '0' >= 0 && s.charAt(index) - '0' <= 9) {
+        index++;
+    }
+    int num = Integer.parseInt(s.substring(start, index));
+    TreeNode node = new TreeNode(num);
+    if (index < s.length() && s.charAt(index) == '(') {
+        index++;
+        node.left = build(s);
+        index++;
+    }
+    if (index < s.length() && s.charAt(index) == '(') {
+        index++;
+        node.right = build(s);
+        index++;
+    }
+    return node;
+}
